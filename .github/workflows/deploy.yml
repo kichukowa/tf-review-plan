@@ -36,10 +36,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: bucket_deploy
     env:
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_KEY }}
-    steps:
+      GOOGLE_APPLICATION_CREDENTIALS: gcp-key.json
       - name: Check out code
         uses: actions/checkout@v4
+
+      - name: Create GCP Key File
+        run: echo "${{ secrets.GCP_KEY }}" > gcp-key.json
 
       - name: Install Python
         uses: actions/setup-python@v5
@@ -48,9 +50,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r python/requirements.txt
-
-      - name: Check env var
-        run: echo $GOOGLE_APPLICATION_CREDENTIALS
 
       - name: Run code
         run: |
