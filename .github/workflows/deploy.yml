@@ -35,13 +35,14 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     needs: bucket_deploy
-    env:
-      GOOGLE_APPLICATION_CREDENTIALS: gcp-key.json
+
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Create GCP Key File
-        run: echo "${{ secrets.GCP_KEY }}" > gcp-key.json
+      - name: Authenticating in GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_KEY }}
 
       - name: Install Python
         uses: actions/setup-python@v5
