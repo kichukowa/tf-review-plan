@@ -1,9 +1,9 @@
-name: Deploy Bucket
+name: Destroy Bucket
 on:
   workflow_dispatch:
 
 jobs:
-  bucket_deploy:
+  bucket_destroy:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
